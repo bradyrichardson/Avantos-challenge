@@ -39,7 +39,17 @@ npm run dev
 yarn dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+4. Clone the server repo
+```bash
+git clone [git@github.com:mosaic-avantos/frontendchallengeserver.git]
+```
+
+5. Run the server
+```bash
+cd [frontendchallengeserver] && npm start
+```
+
+6. Open your browser and navigate to `http://localhost:5173`
 
 ## Project Structure
 
