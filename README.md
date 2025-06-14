@@ -1,54 +1,132 @@
-# React + TypeScript + Vite
+# Form Blueprint Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my submission for the Avantos-challenge, it is a React/Typescript/Vite project that uses the provided API (https://github.com/mosaic-avantos/frontendchallengeserver) to get data which is then visualized in a manner similar to the project docs.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Interactive node-based form visualization
+- Form prefill editing capabilities
+- Data mapping between forms
+- Real-time form relationship updates
+- Canvas-based edge visualization
+- Context-based state management
 
-## Expanding the ESLint configuration
+## Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v16 or higher)
+- npm or yarn
+- Modern web browser
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+
+1. Clone the repository:
+```bash
+git clone [git@github.com:bradyrichardson/Avantos-challenge.git]
+cd [Avantos-challenge]
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
 ```
+
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## Project Structure
+
+```
+src/
+├── components/         # react components
+│   ├── helpers/       # utility functions and context
+│   └── ...           # main components
+├── i_forms/          # typeScript interfaces
+├── tests/            # test files
+└── App.tsx          # root component
+```
+
+## Key Patterns and Architecture
+
+### 1. State Management
+- Uses React Context for global state management
+- Implements a form context system for managing form relationships
+- Follows a unidirectional data flow pattern
+
+### 2. Component Architecture
+- Modular component design with clear separation of concerns
+- Reusable components for form editing and visualization
+- Canvas-based visualization for form relationships
+
+### 3. Type Safety
+- Comprehensive TypeScript implementation
+- Strong typing for form data structures
+- Interface-driven development
+
+## Extending the Application
+
+### Adding New Data Sources
+
+1. While the current solution works for the challenge and for the sample data sources provided by the nodes in the API response, you can edit the data source interface in `i_forms/`:
+```typescript
+interface NewDataSource {
+  id: string;
+  name: string;
+  // add more required fields
+}
+```
+
+2. If you want more control over what the components use in the context, you can edit the form context itself:
+```typescript
+interface BlueprintContext {
+  [key: string]: {
+    key: string;
+    form: Form;
+    node: FormNode;
+    prefill: boolean;
+    // add new data source properties or other properties
+  }
+}
+```
+
+It should already map the nodes without issue.
+
+## Testing
+
+Run the test suite:
+```bash
+npm test
+# or
+yarn test
+```
+
+The project uses Vitest for testing with React Testing Library for component testing.
+
+## Key Patterns to Pay Attention To
+
+1. **Context Management**
+   - The application uses a context-based state management system
+   - Pay attention to how form data is propagated through the context
+   - Understand the relationship between global and local state
+
+2. **Component Communication**
+   - Components communicate through props and context
+   - Event handling follows a consistent pattern
+   - State updates are managed through setter functions
+
+3. **Data Flow**
+   - Unidirectional data flow from parent to child components
+   - State updates trigger re-renders in a predictable manner
+   - API calls are centralized and managed through axios
+
+4. **Type Safety**
+   - TypeScript interfaces define the shape of data
+   - Props are strictly typed
+   - Context values are type-checked
